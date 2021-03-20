@@ -10,7 +10,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
   let port: u16 = env::var("PORT")?.parse()?;
 
-
   let make_svc = make_service_fn(|socket: &AddrStream| {
     let remote_address = socket.remote_addr();
     async move {
@@ -22,7 +21,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     }
   });
 
-  let addr = ([127, 0, 0, 1], port).into();
+  let addr = ([0, 0, 0, 0], port).into();
 
   let server = Server::bind(&addr).serve(make_svc);
 
